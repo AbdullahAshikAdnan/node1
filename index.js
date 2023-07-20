@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 const axios = require("axios");
+const path = require("path");
 const fs = require("fs"); // Added fs module import
 
 // Configure middleware
@@ -45,7 +46,7 @@ app.post(
 
     // Call function to schedule RVM
     try {
-      await scheduleRVM(phoneNumber, voicemailFile, rvmDate, rvmTime);
+      await scheduleRVM(phoneNumber, voicemailFile, rvmDate, rvmTime, quantity5RVMCalls, quantity10RVMCalls, quantity15RVMCalls, quantity20RVMCalls, quantity25RVMCalls);
       res.status(200).json({ message: "RVM scheduled successfully" });
     } catch (error) {
       res.status(500).json({ error: "Failed to schedule RVM" });
@@ -54,7 +55,7 @@ app.post(
 );
 
 // Function to schedule RVM
-async function scheduleRVM(phoneNumber, voicemailFile, rvmDate, rvmTime) {
+async function scheduleRVM(phoneNumber, voicemailFile, rvmDate, rvmTime, quantity5RVMCalls, quantity10RVMCalls, quantity15RVMCalls, quantity20RVMCalls, quantity25RVMCalls) {
   // Use Axios to make API request to schedule RVM call
   const endpoint = "https://api.dropcowboy.com/v1/rvm"; // Replace with the actual API endpoint
   const url = endpoint;
