@@ -66,7 +66,32 @@ async function scheduleRVM(phoneNumber, voicemailFile, rvmDate, rvmTime, quantit
     "X-SecretKey": "dropCowboySecretKey",
     "Content-Type": "application/json",
   };
-  
+
+// Schedule 5 RVM Calls
+  for (let i = 0; i < quantity5RVMCalls; i++) {
+    await scheduleRVMForPackage5(phoneNumber, voicemailFile, url, headers);
+  }
+
+  // Schedule 10 RVM Calls
+  for (let i = 0; i < quantity10RVMCalls; i++) {
+    await scheduleRVMForPackage10(phoneNumber, voicemailFile, url, headers);
+  }
+
+  // Schedule 15 RVM Calls
+  for (let i = 0; i < quantity15RVMCalls; i++) {
+    await scheduleRVMForPackage15(phoneNumber, voicemailFile, url, headers);
+  }
+
+  // Schedule 20 RVM Calls
+  for (let i = 0; i < quantity20RVMCalls; i++) {
+    await scheduleRVMForPackage20(phoneNumber, voicemailFile, url, headers);
+  }
+
+  // Schedule 25 RVM Calls
+  for (let i = 0; i < quantity25RVMCalls; i++) {
+    await scheduleRVMForPackage25(phoneNumber, voicemailFile, url, headers);
+  }
+}  
   const payload = {
     team_id: "acb1088b-e24d-4c61-bb83-cfb335d71892", // Replace with your actual team_id
     secret: "48db8265-f632-418b-b4f3-eb8c24aaef58", // Replace with your actual secret
@@ -85,57 +110,6 @@ async function scheduleRVM(phoneNumber, voicemailFile, rvmDate, rvmTime, quantit
 }
 
   const scheduledDateTime = `${rvmDate} ${rvmTime}`; // Combine the date and time
-
-  // Schedule 5 RVM Calls
-  for (let i = 0; i < quantity5RVMCalls; i++) {
-    const payload = {
-      phone_number: phoneNumber,
-      voicemail: fs.readFileSync(voicemailFile.path, { encoding: "base64" }),
-    };
-    const response = await axios.post(dropCowboyApiUrl, payload, { headers });
-    console.log("RVM scheduled:", response.data);
-  }
-
-  // Schedule 10 RVM Calls
-  for (let i = 0; i < quantity10RVMCalls; i++) {
-    const payload = {
-      phone_number: phoneNumber,
-      voicemail: fs.readFileSync(voicemailFile.path, { encoding: "base64" }),
-    };
-    const response = await axios.post(dropCowboyApiUrl, payload, { headers });
-    console.log("RVM scheduled:", response.data);
-  }
-
-  // Schedule 15 RVM Calls
-  for (let i = 0; i < quantity15RVMCalls; i++) {
-    const payload = {
-      phone_number: phoneNumber,
-      voicemail: fs.readFileSync(voicemailFile.path, { encoding: "base64" }),
-    };
-    const response = await axios.post(dropCowboyApiUrl, payload, { headers });
-    console.log("RVM scheduled:", response.data);
-  }
-
-  // Schedule 20 RVM Calls
-  for (let i = 0; i < quantity20RVMCalls; i++) {
-    const payload = {
-      phone_number: phoneNumber,
-      voicemail: fs.readFileSync(voicemailFile.path, { encoding: "base64" }),
-    };
-    const response = await axios.post(dropCowboyApiUrl, payload, { headers });
-    console.log("RVM scheduled:", response.data);
-  }
-
-  // Schedule 25 RVM Calls
-  for (let i = 0; i < quantity25RVMCalls; i++) {
-    const payload = {
-      phone_number: phoneNumber,
-      voicemail: fs.readFileSync(voicemailFile.path, { encoding: "base64" }),
-    };
-    const response = await axios.post(dropCowboyApiUrl, payload, { headers });
-    console.log("RVM scheduled:", response.data);
-  }
-}
 
 // Start the server
 app.listen(3000, () => {
