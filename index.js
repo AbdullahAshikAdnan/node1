@@ -54,60 +54,103 @@ app.post(
   }
 );
 
-// Function to schedule RVM
-async function scheduleRVM(phoneNumber, voicemailFile, rvmDate, rvmTime, quantity5RVMCalls, quantity10RVMCalls, quantity15RVMCalls, quantity20RVMCalls, quantity25RVMCalls) {
+// Function to schedule RVM for Package 5
+async function scheduleRVMForPackage5(payload) {
+  try {
+    const response = await axios.post(dropCowboyApiUrl, payload, { headers: getHeaders() });
+    console.log("RVM scheduled for Package 5:", response.data);
+  } catch (error) {
+    console.error("Failed to schedule RVM for Package 5:", error.message);
+    throw error;
+  }
+}
+
+// Function to schedule RVM for Package 10
+async function scheduleRVMForPackage10(payload) {
+  try {
+    const response = await axios.post(dropCowboyApiUrl, payload, { headers: getHeaders() });
+    console.log("RVM scheduled for Package 10:", response.data);
+  } catch (error) {
+    console.error("Failed to schedule RVM for Package 10:", error.message);
+    throw error;
+  }
+}
+
+// Function to schedule RVM for Package 15
+async function scheduleRVMForPackage15(payload) {
+  try {
+    const response = await axios.post(dropCowboyApiUrl, payload, { headers: getHeaders() });
+    console.log("RVM scheduled for Package 15:", response.data);
+  } catch (error) {
+    console.error("Failed to schedule RVM for Package 15:", error.message);
+    throw error;
+  }
+}
+
+// Function to schedule RVM for Package 20
+async function scheduleRVMForPackage20(payload) {
+  try {
+    const response = await axios.post(dropCowboyApiUrl, payload, { headers: getHeaders() });
+    console.log("RVM scheduled for Package 20:", response.data);
+  } catch (error) {
+    console.error("Failed to schedule RVM for Package 20:", error.message);
+    throw error;
+  }
+}
+
+// Function to schedule RVM for Package 25
+async function scheduleRVMForPackage25(payload) {
+  try {
+    const response = await axios.post(dropCowboyApiUrl, payload, { headers: getHeaders() });
+    console.log("RVM scheduled for Package 25:", response.data);
+  } catch (error) {
+    console.error("Failed to schedule RVM for Package 25:", error.message);
+    throw error;
+  }
+}
+
+// Function to schedule RVM based on the selected packages
+async function scheduleRVM(phoneNumber, voicemailFile, rvmDate, rvmTime, packages) {
   // Use Axios to make API request to schedule RVM call
   const endpoint = "https://api.dropcowboy.com/v1/rvm"; // Replace with the actual API endpoint
   const url = endpoint;
-
-  // Set request headers and parameters
-  const headers = {
-    "X-TeamID": "dropCowboyTeamId",
-    "X-SecretKey": "dropCowboySecretKey",
-    "Content-Type": "application/json",
-  };
-
-// Schedule 5 RVM Calls
-  for (let i = 0; i < quantity5RVMCalls; i++) {
-    await scheduleRVMForPackage5(phoneNumber, voicemailFile, url, headers);
-  }
-
-  // Schedule 10 RVM Calls
-  for (let i = 0; i < quantity10RVMCalls; i++) {
-    await scheduleRVMForPackage10(phoneNumber, voicemailFile, url, headers);
-  }
-
-  // Schedule 15 RVM Calls
-  for (let i = 0; i < quantity15RVMCalls; i++) {
-    await scheduleRVMForPackage15(phoneNumber, voicemailFile, url, headers);
-  }
-
-  // Schedule 20 RVM Calls
-  for (let i = 0; i < quantity20RVMCalls; i++) {
-    await scheduleRVMForPackage20(phoneNumber, voicemailFile, url, headers);
-  }
-
-  // Schedule 25 RVM Calls
-  for (let i = 0; i < quantity25RVMCalls; i++) {
-    await scheduleRVMForPackage25(phoneNumber, voicemailFile, url, headers);
-  }
-}  
+  
   const payload = {
-    team_id: "acb1088b-e24d-4c61-bb83-cfb335d71892", // Replace with your actual team_id
-    secret: "48db8265-f632-418b-b4f3-eb8c24aaef58", // Replace with your actual secret
+    team_id: dropCowboyTeamId,
+    secret: dropCowboySecretKey,
     audio_url: "https://example.com/your-file.mp3", // Replace with the URL of your voicemail audio file
     audio_type: "mp3", // Replace with the file type of your audio file (mp3 or wav)
     phone_number: phoneNumber, // The phone number in E.164 format to send the RVM
   };
 
-  try {
-    const response = await axios.post(url, payload, { headers });
-    console.log("RVM scheduled:", response.data);
-  } catch (error) {
-    console.error("Failed to schedule RVM:", error.message);
-    throw error;
+  for (const pack of packages) {
+    switch (pack) {
+      case "1":
+        // For Package 1, schedule only one RVM
+        await scheduleRVMForPackage(payload, 1);
+        break;
+      case "5":
+        // For Package 5, schedule 5 RVMs
+        await scheduleRVMForPackage(payload, 5);
+        break;
+      case "10":
+        // For Package 10, schedule 10 RVMs
+        await scheduleRVMForPackage(payload, 10);
+        break;
+      case "20":
+        // For Package 20, schedule 20 RVMs
+        await scheduleRVMForPackage(payload, 20);
+        break;
+      case "25":
+        // For Package 25, schedule 25 RVMs
+        await scheduleRVMForPackage(payload, 25);
+        break;
+      default:
+        // Invalid package selected
+        throw new Error("Invalid package selected.");
+    }
   }
-}
+} 
 
   const scheduledDateTime = `${rvmDate} ${rvmTime}`; // Combine the date and time
 
