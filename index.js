@@ -62,10 +62,27 @@ async function scheduleRVM(phoneNumber, voicemailFile, rvmDate, rvmTime, quantit
 
   // Set request headers and parameters
   const headers = {
-    "X-TeamID": "acb1088b-e24d-4c61-bb83-cfb335d71892",
-    "X-SecretKey": "48db8265-f632-418b-b4f3-eb8c24aaef58",
+    "X-TeamID": "dropCowboyTeamId",
+    "X-SecretKey": "dropCowboySecretKey",
     "Content-Type": "application/json",
   };
+  
+  const payload = {
+    team_id: "acb1088b-e24d-4c61-bb83-cfb335d71892", // Replace with your actual team_id
+    secret: "48db8265-f632-418b-b4f3-eb8c24aaef58", // Replace with your actual secret
+    audio_url: "https://example.com/your-file.mp3", // Replace with the URL of your voicemail audio file
+    audio_type: "mp3", // Replace with the file type of your audio file (mp3 or wav)
+    phone_number: phoneNumber, // The phone number in E.164 format to send the RVM
+  };
+
+  try {
+    const response = await axios.post(url, payload, { headers });
+    console.log("RVM scheduled:", response.data);
+  } catch (error) {
+    console.error("Failed to schedule RVM:", error.message);
+    throw error;
+  }
+}
 
   const scheduledDateTime = `${rvmDate} ${rvmTime}`; // Combine the date and time
 
